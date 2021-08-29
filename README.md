@@ -1,4 +1,4 @@
-## CatCMS-Go Overview
+## CatCMS-Go
 
 Backend Golang microservice for CatCMS. Designed to run as a single backend for any number of CatCMS frontends. Designed to be hosted with Google Cloud Run, but it could be hosted easily in any container-based offering.
 
@@ -15,7 +15,10 @@ Currently designed to work with Google Datastore NoSQL. Chosen because it is che
 
 ```
 GOOGLE_APPLICATION_CREDENTIALS="${path to file with JSON key}"
-APP_ID=${random GUID}
+APP_ID=${GUID unique to app instance}
+JWT_SECRET=${32 character string}
+BASIC_AUTH_USERNAME=${username}
+BASIC_AUTH_PASSWORD=${password}
 ```
 
 ## Run Dev
