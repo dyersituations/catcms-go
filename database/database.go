@@ -3,7 +3,6 @@ package database
 import (
 	"context"
 	"log"
-	"os"
 
 	"cloud.google.com/go/datastore"
 )
@@ -36,7 +35,7 @@ func Put(kind string, entities interface{}, key *datastore.Key) error {
 }
 
 // Gets an entity from the datastore
-func Get(kind string, filterKey string, filterValue string, entities interface{}) ([]*datastore.Key, error) {
+func Get(appId string, kind string, filterKey string, filterValue string, entities interface{}) ([]*datastore.Key, error) {
 	// Connect to the datastore
 	ctx := context.Background()
 	dsClient, err := datastore.NewClient(ctx, projectID)
@@ -49,7 +48,7 @@ func Get(kind string, filterKey string, filterValue string, entities interface{}
 	// Create the query for the datastore
 	// Always filter based on app ID
 	q := datastore.NewQuery(kind).
-		Filter("AppId =", os.Getenv("APP_ID")).
+		Filter("AppId =", appId).
 		Filter(filterKey+" =", filterValue)
 
 	// Get the entity

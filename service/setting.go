@@ -3,7 +3,6 @@ package setting
 import (
 	"catcms-go/database"
 	"net/http"
-	"os"
 
 	"cloud.google.com/go/datastore"
 	"github.com/labstack/echo/v4"
@@ -14,6 +13,7 @@ import (
 // Handles upserting an application setting to the datastore
 func UpsertSetting(c echo.Context) error {
 	// Get values from request body
+	var appId = c.FormValue("appId")
 	var key = c.FormValue("key")
 	var value = c.FormValue("value")
 	if key == "" || value == "" {
@@ -22,7 +22,7 @@ func UpsertSetting(c echo.Context) error {
 
 	// Create setting object
 	var setting model.Setting = model.Setting{
-		AppId: os.Getenv("APP_ID"),
+		AppId: appId,
 		Key:   key,
 		Value: value,
 	}
@@ -30,7 +30,7 @@ func UpsertSetting(c echo.Context) error {
 	// Find existing setting key if it exists
 	// Existing datastore key needed for upsert
 	var settings []model.Setting
-	keys, err := database.Get(model.SettingKind, "Key", key, &settings)
+	keys, err := database.Get(appId, model.SettingKind, "Key", key, &settings)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, "Error encountered")
 	}
@@ -50,7 +50,8 @@ func UpsertSetting(c echo.Context) error {
 
 // Handles getting an application setting from the datastore
 func GetSetting(c echo.Context) error {
-	// Get the value from the request body
+	// Get values from request body
+	var appId = c.FormValue("appId")
 	var key = c.FormValue("key")
 	if key == "" {
 		return c.String(http.StatusBadRequest, "Missing setting key")
@@ -58,7 +59,7 @@ func GetSetting(c echo.Context) error {
 
 	// Get the existing setting from the datastore
 	var settings []model.Setting
-	if keys, err := database.Get(model.SettingKind, "Key", key, &settings); err != nil {
+	if keys, err := database.Get(appId, model.SettingKind, "Key", key, &settings); err != nil {
 		return c.String(http.StatusInternalServerError, "Error encountered")
 	} else if len(keys) == 0 {
 		return c.String(http.StatusBadRequest, "Setting not found")
