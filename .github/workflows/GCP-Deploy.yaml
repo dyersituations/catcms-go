@@ -4,12 +4,9 @@ on:
   push:
     branches: [ production ]
 
-  pull_request:
-    branches: [ production ]
-
 jobs:
     deploy:
-        name: Setup Gcloud Account
+        name: Deploy to Cloud Run
 
         runs-on: ubuntu-latest
 
@@ -40,9 +37,6 @@ jobs:
 
         - name: Build Docker image
           run: docker build . -t $IMAGE_NAME
-
-        - name: Test Docker image
-          run: docker run $IMAGE_NAME sh -c "go test -v"
 
         - name: Push Docker image
           run: docker push $IMAGE_NAME
