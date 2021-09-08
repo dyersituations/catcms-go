@@ -30,7 +30,7 @@ RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -
 COPY --from=builder /app/server /app/server
 
 # Copy .env file generated in GitHub Action step
-COPY .env /app/.env
+COPY --from=builder /app/.env /app/.env
 
 # Run the web service on container startup
 CMD ["/app/server"]
