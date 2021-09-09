@@ -27,10 +27,10 @@ RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -
     rm -rf /var/lib/apt/lists/*
 
 # Copy the binary to the production image from the builder stage
-COPY --from=builder /app/server /app/server2
+# COPY --from=builder /app/server /app/server2
 
 # Copy .env file generated in GitHub Action step
-# COPY --from=builder /app/.env /app/.env
+COPY --from=builder /app/.env /app/.env
 
 # Run the web service on container startup
 CMD ["/app/server"]
