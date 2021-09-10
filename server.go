@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"os"
+	"path/filepath"
 
 	"github.com/golang-jwt/jwt"
 	"github.com/joho/godotenv"
@@ -15,9 +16,14 @@ import (
 
 func main() {
 	// Load the env file
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
+	dir, errDir := filepath.Abs(filepath.Dir(os.Args[0]))
+	if errDir != nil {
+		log.Fatal(errDir)
+	}
+	envPath := filepath.Join(dir, ".env")
+	errEnv := godotenv.Load(envPath)
+	if errEnv != nil {
+		log.Fatal(errEnv)
 	}
 
 	// Create Echo instance and add basic middleware
