@@ -16,21 +16,21 @@ RUN go mod download
 COPY . ./
 
 # Build the binary
-# RUN go build -v -o server
+RUN go build -v -o server
 
 # Use the official Debian slim image for a lean production container
 # https://hub.docker.com/_/debian
 # https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
-# FROM debian:buster-slim
-# RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-#     ca-certificates && \
-#     rm -rf /var/lib/apt/lists/*
+FROM debian:buster-slim
+RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
 
 # Copy the binary to the production image from the builder stage
-# COPY --from=builder /app/server /app/server2
+COPY --from=builder /app/server /app/server
 
 # Copy .env file generated in GitHub Action step
-# COPY --from=builder /app/.env /app/.env
+COPY --from=builder /app/.env /app/.env
 
 # Run the web service on container startup
-# CMD ["/app/server"]
+CMD ["/app/server"]
