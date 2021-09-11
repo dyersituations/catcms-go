@@ -1,30 +1,20 @@
 package main
 
 import (
-	"log"
 	"os"
-	"path/filepath"
 
 	"github.com/golang-jwt/jwt"
-	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
 	auth "catcms-go/auth"
 	service "catcms-go/service"
+	util "catcms-go/util"
 )
 
 func main() {
 	// Load the env file
-	dir, errDir := filepath.Abs(filepath.Dir(os.Args[0]))
-	if errDir != nil {
-		log.Fatal(errDir)
-	}
-	envPath := filepath.Join(dir, ".env")
-	errEnv := godotenv.Load(envPath)
-	if errEnv != nil {
-		log.Fatal(errEnv)
-	}
+	util.LoadEnv()
 
 	// Create Echo instance and add basic middleware
 	e := echo.New()
