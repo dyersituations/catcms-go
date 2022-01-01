@@ -25,6 +25,7 @@ func main() {
 	e.POST("/login", auth.Login)
 
 	// Endpoint for getting a setting from the database
+	// No authentication needed
 	e.GET("/get-setting", service.GetSetting)
 
 	// Create group for auth
