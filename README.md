@@ -8,13 +8,10 @@ Currently designed to work with Google Datastore NoSQL. Chosen because it is che
 
 ## Local
 
-- Create a service account key 
-  - https://cloud.google.com/community/tutorials/cicd-cloud-run-github-actions
-  - Save JSON file to repo root as `key.json`
+- Run to get credentials for local dev: `gcloud auth application-default login`
 - Create a `.env` file in root
 
 ```
-GOOGLE_APPLICATION_CREDENTIALS="${path to file with JSON key}"
 JWT_SECRET=${32 character string}
 BASIC_AUTH_USERNAME=${username}
 BASIC_AUTH_PASSWORD=${password}
@@ -27,20 +24,23 @@ BASIC_AUTH_PASSWORD=${password}
 
 ## Deployment
 
-- https://cloud.google.com/community/tutorials/cicd-cloud-run-github-actions
-- `production` branch used for deployment
+- Create a service account
+  - https://cloud.google.com/community/tutorials/cicd-cloud-run-github-actions
+  - Use JSON key below for `GCP_CREDENTIALS`
+- Use `production` branch for deployment
 - Create the following GitHub Actions secrets
 
 ```
-GCP_APP_NAME=${name of app}
+GCP_APP_NAME=${name of app, ie `catcms`}
 GCP_CREDENTIALS=${content of JSON key}
-GCP_EMAIL=${email from service account}
+GCP_EMAIL=${email of service account}
 GCP_PROJECT_ID=${ID of GCP project}
-GCP_REGION=${GCP region, for example `us-west2`}
-JWT_SECRET=${32 character string}
+GCP_REGION=${GCP region, ie `us-west2`}
+JWT_SECRET=${random 32 character string}
 BASIC_AUTH_USERNAME=${username}
 BASIC_AUTH_PASSWORD=${password}
 ```
 
 ## Verify
-- `gcloud run services list`
+
+- Show deployed services: `gcloud run services list`
