@@ -50,9 +50,9 @@ func UpsertSetting(c echo.Context) error {
 
 // Handles getting an application setting from the datastore
 func GetSetting(c echo.Context) error {
-	// Get values from request body
-	var appId = c.FormValue("appId")
-	var key = c.FormValue("key")
+	// Get values from query params
+	var appId = c.QueryParam("appId")
+	var key = c.QueryParam("key")
 	if key == "" {
 		return c.String(http.StatusBadRequest, "Missing setting key")
 	}
