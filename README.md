@@ -30,7 +30,7 @@ BASIC_AUTH_PASSWORD=${password}
   - `. ~/.bashrc`
 
 - Start service: `gin --appPort 8080 --all -i run .`
-  - Watches all files and immediately starts server
+  - Watches all files and immediately starts/restarts server
 
 ## Deployment
 
