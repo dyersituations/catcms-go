@@ -17,7 +17,6 @@ BASIC_AUTH_USERNAME=${username}
 BASIC_AUTH_PASSWORD=${password}
 ```
 
-- Download dependencies: `go mod download`
 - Update PATH
 
   - Run: `nano ~/.bashrc`
@@ -31,6 +30,7 @@ BASIC_AUTH_PASSWORD=${password}
   - `. ~/.bashrc`
 
 - Start service: `gin --appPort 8080 --all -i run .`
+  - Watches all files and immediately starts server
 
 ## Deployment
 
