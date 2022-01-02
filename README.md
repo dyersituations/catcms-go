@@ -31,12 +31,12 @@ BASIC_AUTH_PASSWORD=${password}
 - Create the following GitHub Actions secrets
 
 ```
-GCP_APP_NAME=${name of app}
+GCP_APP_NAME=${name of app, ie `catcms`}
 GCP_CREDENTIALS=${content of JSON key}
-GCP_EMAIL=${email from service account}
+GCP_EMAIL=${email of service account}
 GCP_PROJECT_ID=${ID of GCP project}
-GCP_REGION=${GCP region, for example `us-west2`}
-JWT_SECRET=${32 character string}
+GCP_REGION=${GCP region, ie `us-west2`}
+JWT_SECRET=${random 32 character string}
 BASIC_AUTH_USERNAME=${username}
 BASIC_AUTH_PASSWORD=${password}
 ```
