@@ -6,9 +6,9 @@ Backend Golang microservice for CatCMS. Designed to run as a single backend for 
 
 Currently designed to work with Google Datastore NoSQL. Chosen because it is cheap and covers the basic requirements of storage needed for this microservice.
 
-## Local
+## Dev
 
-- Run to get credentials for local dev: `gcloud auth application-default login`
+- Get credentials for local dev: `gcloud auth application-default login`
 - Create a `.env` file in root
 
 ```
@@ -17,10 +17,20 @@ BASIC_AUTH_USERNAME=${username}
 BASIC_AUTH_PASSWORD=${password}
 ```
 
-## Dev
+- Download dependencies: `go mod download`
+- Update PATH
 
-- Start the service with `go run .`
-- Service runs at `localhost:8080`
+  - Run: `nano ~/.bashrc`
+  - Add
+
+  ```
+  export GOPATH="$HOME/go"
+  export PATH="$GOPATH/bin:$PATH"
+  ```
+
+  - `. ~/.bashrc`
+
+- Start service: `gin --appPort 8080 --all -i run .`
 
 ## Deployment
 
